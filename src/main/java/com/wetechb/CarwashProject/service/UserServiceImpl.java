@@ -2,7 +2,7 @@ package com.wetechb.CarwashProject.service;
 
 import com.wetechb.CarwashProject.dto.UserDto;
 import com.wetechb.CarwashProject.entity.Role;
-import com.wetechb.CarwashProject.entity.User;
+import com.wetechb.CarwashProject.entity.Admin;
 import com.wetechb.CarwashProject.repository.RoleRepository;
 import com.wetechb.CarwashProject.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(UserDto userDto) {
-        User user = new User();
+        Admin user = new Admin();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
         // encrypt the password using spring security
@@ -43,19 +43,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public Admin findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
     public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<Admin> users = userRepository.findAll();
         return users.stream()
                 .map((user) -> mapToUserDto(user))
                 .collect(Collectors.toList());
     }
 
-    private UserDto mapToUserDto(User user){
+    private UserDto mapToUserDto(Admin user){
         UserDto userDto = new UserDto();
         String[] str = user.getName().split(" ");
         userDto.setFirstName(str[0]);

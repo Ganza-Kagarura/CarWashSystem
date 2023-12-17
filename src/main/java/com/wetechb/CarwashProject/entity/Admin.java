@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "admin")
-public class User {
+public class Admin {
     private static final long serialVersionUID = 1L;
 
     @Id

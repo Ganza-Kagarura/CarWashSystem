@@ -1,7 +1,7 @@
 package com.wetechb.CarwashProject.controller;
 
 import com.wetechb.CarwashProject.dto.UserDto;
-import com.wetechb.CarwashProject.entity.User;
+import com.wetechb.CarwashProject.entity.Admin;
 import com.wetechb.CarwashProject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -39,7 +39,7 @@ public class LoginController {
     public String registration(@ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model){
-        User existingUser = userService.findUserByEmail(userDto.getEmail());
+        Admin existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
             result.rejectValue("email", null,

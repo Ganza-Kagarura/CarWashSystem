@@ -1,7 +1,7 @@
 package com.wetechb.CarwashProject.service;
 
 import com.wetechb.CarwashProject.entity.Role;
-import com.wetechb.CarwashProject.entity.User;
+import com.wetechb.CarwashProject.entity.Admin;
 import com.wetechb.CarwashProject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +24,7 @@ public class UserDetailsSrvc implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+        Admin user = userRepository.findByEmail(email);
 
         if (user != null) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
