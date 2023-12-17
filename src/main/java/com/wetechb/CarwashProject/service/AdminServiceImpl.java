@@ -4,7 +4,7 @@ import com.wetechb.CarwashProject.dto.UserDto;
 import com.wetechb.CarwashProject.entity.Role;
 import com.wetechb.CarwashProject.entity.Admin;
 import com.wetechb.CarwashProject.repository.RoleRepository;
-import com.wetechb.CarwashProject.repository.UserRepository;
+import com.wetechb.CarwashProject.repository.AdminRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+public class AdminServiceImpl implements AdminService {
+    private final AdminRepository adminRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public AdminServiceImpl(AdminRepository userRepository,
+                            RoleRepository roleRepository,
+                            PasswordEncoder passwordEncoder) {
+        this.adminRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -39,17 +39,17 @@ public class UserServiceImpl implements UserService {
             role = checkRoleExist();
         }
         user.setRoles(Arrays.asList(role));
-        userRepository.save(user);
+        adminRepository.save(user);
     }
 
     @Override
     public Admin findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return adminRepository.findByEmail(email);
     }
 
     @Override
     public List<UserDto> findAllUsers() {
-        List<Admin> users = userRepository.findAll();
+        List<Admin> users = adminRepository.findAll();
         return users.stream()
                 .map((user) -> mapToUserDto(user))
                 .collect(Collectors.toList());

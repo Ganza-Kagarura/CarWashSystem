@@ -2,7 +2,7 @@ package com.wetechb.CarwashProject.controller;
 
 import com.wetechb.CarwashProject.dto.UserDto;
 import com.wetechb.CarwashProject.entity.Admin;
-import com.wetechb.CarwashProject.service.UserService;
+import com.wetechb.CarwashProject.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final UserService userService;
+    private final AdminService userService;
 
     // handler method to handle home page request
     @GetMapping("/index")

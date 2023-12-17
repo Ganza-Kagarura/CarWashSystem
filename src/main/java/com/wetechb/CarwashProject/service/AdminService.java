@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public interface UserService {
+public interface AdminService {
     void saveUser(UserDto userDto);
 
     Admin findUserByEmail(String email);

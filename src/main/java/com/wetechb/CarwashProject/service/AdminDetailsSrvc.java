@@ -2,7 +2,7 @@ package com.wetechb.CarwashProject.service;
 
 import com.wetechb.CarwashProject.entity.Role;
 import com.wetechb.CarwashProject.entity.Admin;
-import com.wetechb.CarwashProject.repository.UserRepository;
+import com.wetechb.CarwashProject.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,19 +17,19 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsSrvc implements UserDetailsService {
+public class AdminDetailsSrvc implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Admin user = userRepository.findByEmail(email);
+        Admin admin = adminRepository.findByEmail(email);
 
-        if (user != null) {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                    user.getPassword(),
-                    mapRolesToAuthorities(user.getRoles()));
+        if (admin != null) {
+            return new org.springframework.security.core.userdetails.User(admin.getEmail(),
+                    admin.getPassword(),
+                    mapRolesToAuthorities(admin.getRoles()));
         }else{
             throw new UsernameNotFoundException("Invalid username or password.");
         }
