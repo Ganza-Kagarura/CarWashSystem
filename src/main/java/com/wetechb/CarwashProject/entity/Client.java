@@ -19,7 +19,6 @@ public class Client {
     @Column(nullable = false, length = 50, name = "clientName")
     private String clientName;
     @Column(nullable = false, unique = true, length = 50, name = "plateNumber")
-//    @NotBlank(message = "Plate number is required")
     private String plateNumber;
     @Column(length = 50, name = "carModel")
     private String carModel;

@@ -41,4 +41,8 @@ public class ClientService {
         existingClient.setPrice(client.getPrice());
         return repository.save(existingClient);
     }
+
+    public Client getSearchedClient(String search) {
+        return repository.findByClientName(search);
+    }
 }

@@ -84,10 +84,10 @@
 <br /><br /><br />
 <section id="bodyWrapper">
     <div class="contents">
-<!--        <div>-->
-<!--            <input th:name="search" type="text" id="search" th:field="*{search}">-->
-<!--            <button>Search</button>-->
-<!--        </div>-->
+        <form method="post" th:action="@{/searchBy}" class="form">
+            <input th:name="search" class="form-control" type="text" id="search">
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
         <div class="display">
             <h3>List of Clients</h3>
             <table class="striped bordered highlight responsive hoverable inverted rounded circular">

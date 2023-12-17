@@ -2,6 +2,7 @@ package com.wetechb.CarwashProject.controller;
 
 import com.wetechb.CarwashProject.entity.Client;
 import com.wetechb.CarwashProject.service.ClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class ClientController {
-    @Autowired
-    private ClientService service;
-    private JavaMailSender emailSender;
+
+    private final ClientService service;
+
+    private final JavaMailSender emailSender;
     @PostMapping("/addClient")
     public String addClient(@ModelAttribute Client client, @RequestParam("action") String action){
         System.out.println(action);
@@ -25,17 +28,17 @@ public class ClientController {
         }else if(action.equals("Delete")){
             service.deleteClient(client.getId());
         }else{
-//            SimpleMailMessage mailMessage = new SimpleMailMessage();
-//            mailMessage.setTo(email);
-//            mailMessage.setFrom("isaacganza22@gmail.com");
-//            mailMessage.setSubject("Howdy?");
-//            mailMessage.setText("Hello, You good?!");
-//            emailSender.send(mailMessage);
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(client.getClientEmail());
+            mailMessage.setFrom("isaacganza22@gmail.com");
+            mailMessage.setSubject("Appointment Message");
+            mailMessage.setText("Hello, Your appointment has been registered successfully");
+            emailSender.send(mailMessage);
             service.saveClient(client);
             System.out.println(client);
 
         }
-        return "redirect:view-register";
+        return "redirect:/view-register";
     }
 
 
@@ -72,6 +75,13 @@ public class ClientController {
     @GetMapping("/dashboard")
     public String showHomePage() {
         return "dashboard";
+    }
+
+    @PostMapping("/searchBy")
+    public String searchClient(@RequestParam("search") String search, Model model){
+        model.addAttribute("clientModel", new Client());
+        model.addAttribute("clientList", service.getSearchedClient(search));
+        return "view";
     }
 
 }
